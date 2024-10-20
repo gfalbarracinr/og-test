@@ -1,0 +1,21 @@
+---
+import Intro from "../components/ekumen/intro";
+import Partnerships from "../components/ekumen/Partnerships.astro";
+import Services from "../components/ekumen/Services.astro";
+import Clients from "../components/ekumen/Clients.astro";
+import BlogPost from "../layouts/BlogPost.astro";
+---
+
+<BlogPost
+    title="About Me"
+	description="Lorem ipsum dolor sit amet"
+	pubDate={new Date('August 08 2021')}
+	heroImage="/blog-placeholder-about.jpg"
+>
+  <main>
+    <Intro />
+    <Partnerships />
+    <Clients />
+    <Services />
+  </main>
+</BlogPost>

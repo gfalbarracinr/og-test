@@ -1,0 +1,35 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  author: string;
+  authorImage?: string;
+}
+
+const { author, authorImage } = Astro.props;
+---
+
+<style>
+  div {
+    background-color: #ccc;
+    padding: 0.25rem;
+    margin-right: 0.25rem;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+  }
+  span {
+    margin-right: 0.25rem;
+    width: 20px;
+    border: 1px solid white;
+    border-radius: 50%;
+    background-color: white;
+  }
+</style>
+
+<div>
+  <span>  
+    { authorImage ? <img src={authorImage} alt="author-icon" /> : <Icon name="ph:user-bold" />}
+  </span>
+  { author }
+</div>

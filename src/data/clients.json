@@ -1,0 +1,34 @@
+[
+    {
+        "img": "images/clients/aevena_logo.png",
+        "alt": "Aevena logo"
+    },
+    {
+        "img": "images/clients/clearpathrobotics.png",
+        "alt": "clear path robotics logo"
+    },
+    {
+        "img": "images/clients/fellow.png",
+        "alt": "fellow logo"
+    },
+    {
+        "img": "images/clients/pickit.png",
+        "alt": "pickit logo"
+    },
+    {
+        "img": "images/clients/premise_logo.png",
+        "alt": "premise logo"
+    },
+    {
+        "img": "images/clients/celery_logo.png",
+        "alt": "celery logo"
+    },
+    {
+        "img": "images/clients/willow_garage_logo.png",
+        "alt": "willow_garage logo"
+    },
+    {
+        "img": "images/clients/yujin_robot.png",
+        "alt": "yujin_robot logo"
+    }
+]

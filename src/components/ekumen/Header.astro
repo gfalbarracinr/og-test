@@ -1,0 +1,89 @@
+---
+import NavBar from "./navBar";
+
+const pathname = new URL(Astro.request.url).pathname;
+const currentPath = pathname.slice(1);
+---
+
+<style>
+  .navbar-container {
+    display: flex;
+    margin-right: 15px;
+    margin-left: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    justify-content: space-between;
+  }
+  .navbar-element {
+    display: flex;
+  }
+  .navbar-brand {
+    justify-content: center;
+    padding-top: 22.5px;
+    padding-bottom: 22.5px;
+    flex: 1;
+  }
+  .navbar-item {
+    padding: 10px 15px;
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+  }
+  .navbar-item-active {
+    background-color: #eaeaea;
+  }
+  .navbar-link {
+    text-decoration: none;
+    color: #6b2875;
+    line-height: 20px;
+  }
+  .navbar-link:hover {
+    color: #96639c;
+  }
+  .navbar-logo {
+    width: 120px;
+    height: 25px;
+  }
+
+  @media screen and (min-width: 994px) {
+    .navbar-logo {
+      width: 250px;
+      height: 55px;
+    }
+    .navbar-container {
+      justify-content: space-between;
+    }
+
+    .navbar-brand {
+      flex: 1;
+    }
+  }
+  @media screen and (max-width: 780px) {
+    .navbar-container {
+      flex-wrap: wrap;
+      padding: 0;
+      margin: 0;
+      justify-content: space-between;
+    }
+    .navbar-brand {
+      flex: none;
+      margin: 15px;
+    }
+  }
+</style>
+
+<header>
+  <nav class="navbar-container">
+    <a class="navbar-brand navbar-element" href="/">
+      <img
+        src="/images/logo.png"
+        class="navbar-logo"
+        loading="eager"
+        width={250}
+        height={55}
+        alt="Ekumen logo"
+      />
+    </a>
+    <NavBar client:load currentPath={currentPath} />
+  </nav>
+</header>

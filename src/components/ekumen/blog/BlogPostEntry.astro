@@ -1,0 +1,115 @@
+---
+import Tags from "./Tags.astro";
+
+interface Props {
+  slug: string;
+  authors: string[];
+  publishDate: Date;
+  title: string;
+  summary: string;
+  tags: string[];
+  thumbnail?: string;
+}
+
+const { slug, thumbnail, title, summary, tags } = Astro.props;
+
+const thumbnailSrc = thumbnail ? thumbnail : "/images/generic-thumbnail.png";
+---
+
+<style>
+  .container {
+    box-sizing: border-box;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 16px;
+    width: 378px;
+    height: 100%;
+    transition: all 0.3s ease-in-out;
+  }
+
+  A {
+    text-decoration: none;
+    height: 100%;
+  }
+
+  .title {
+    color: #6b2875;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.8rem;
+    margin: 0;
+  }
+
+  .summary {
+    color: #000;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.15rem;
+  }
+
+  .thumbnail-container {
+    box-sizing: border-box;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .thumbnail {
+    display: block;
+    width: 100%;
+    height: 256px;
+    background-color: transparent;
+    object-fit: cover;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .details {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0 1rem;
+    height: 100%;
+  }
+
+  .tags {
+    padding: 0 1rem;
+  }
+
+  .container:hover {
+    background-color: #f1f1f1;
+  }
+
+  .container:hover .thumbnail {
+    transform: scale(1.1);
+  }
+
+  @media screen and (max-width: 1279px) {
+    .container {
+      width: 368px;
+    }
+  }
+
+  @media screen and (max-width: 844px) {
+    .container {
+      width: 350px;
+    }
+  }
+</style>
+
+<article class="container">
+  <a href={`/blog/posts/${slug}`}>
+    <section class="thumbnail-container">
+      <img class="thumbnail" src={thumbnailSrc} alt={`${title}-thumbnail`} />
+    </section>
+  </a>
+  <div class="tags">
+    <Tags tags={tags} />
+  </div>
+  <a href={`/blog/posts/${slug}`}>
+    <section class="details">
+      <h2 class="title">{title}</h2>
+      <div class="summary">{summary}</div>
+    </section>
+    </a>
+</article>

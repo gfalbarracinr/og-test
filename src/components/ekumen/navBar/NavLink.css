@@ -1,0 +1,8 @@
+.navbar-link {
+  text-decoration: none;
+  color: #6b2875;
+  line-height: 20px;
+}
+.navbar-link:hover {
+  color: #96639c
+}
