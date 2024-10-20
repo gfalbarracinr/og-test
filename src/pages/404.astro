@@ -1,0 +1,24 @@
+---
+import Header from "src/components/Header.astro";
+import BasicLayout from "../layouts/BasicLayout.astro";
+---
+
+<style>
+  main {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 4rem;
+  }
+</style>
+<BasicLayout title="404 - Not found" description="page not found">
+  <Header />
+  <main>
+    <h1>404</h1>
+    <p>
+      The page you are looking for doesn't exist. If you think this is wrong,
+      and it should exist, please report it.
+    </p>
+    <img src="/logo.svg" />
+  </main>
+</BasicLayout>

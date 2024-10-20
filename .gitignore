@@ -1,8 +1,9 @@
 # build output
 dist/
+.public/
 # generated types
 .astro/
-.public/
+.netlify/
 .vscode/
 
 # dependencies

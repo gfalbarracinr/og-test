@@ -1,0 +1,64 @@
+---
+import '@fontsource/roboto';
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+
+const resolveDescription = description ?? "We are an international engineering boutique, provider of advanced software development services and technology.";
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+---
+
+<style is:global>
+  html,
+  body {
+    height: 100%;
+  }
+  html {
+    overflow-y: scroll;
+  }
+  body {
+    margin: 0;
+    font-family: "Roboto", "Open Sans", "Segoe UI", "lucida grande", arial,
+      verdana, "lucida sans unicode", tahoma, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+  }
+</style>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={resolveDescription} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={resolveDescription} />
+    <meta property="og:image" content={new URL("/og-image.png", Astro.url)} />
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={resolveDescription} />
+    <meta property="twitter:image" content={new URL("/og-image.png", Astro.url)} />
+  </head>
+
+  <body>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,36 @@
+---
+import { getCollection } from "astro:content";
+import BlogLayout from "../../../layouts/BlogLayout.astro";
+import BlogPostEntries from "src/components/blog/BlogPostEntries.astro";
+import { BLOG_ENABLED } from "src/feature_flags";
+
+// 1. Generate a new path for every tag
+export async function getStaticPaths() {
+  if (!BLOG_ENABLED) {
+    return [];
+  }
+  const blogEntries = await getCollection("blog");
+
+  const uniqueTags = [
+    ...new Set(blogEntries.map((post) => post.data.tags).flat()),
+  ];
+
+  return uniqueTags.map((tag) => {
+    const filteredPosts = blogEntries.filter((post) =>
+      post.data.tags.includes(tag)
+    );
+    return {
+      params: { tag },
+      props: { posts: filteredPosts },
+    };
+  });
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+
+<BlogLayout title={`${tag} - Ekumen`} description={tag}>
+  <h1>Blog posts tagged {tag}</h1>
+  <BlogPostEntries entries={posts} />
+</BlogLayout>

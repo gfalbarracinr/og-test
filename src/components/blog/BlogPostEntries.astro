@@ -1,0 +1,53 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BlogPostEntry from "src/components/blog/BlogPostEntry.astro";
+
+const isDevPostEnabled = import.meta.env.PUBLIC_ENABLE_DEV_POSTS;
+const ENABLE_DEV_POSTS = isDevPostEnabled ?? false;
+
+interface Props {
+  entries: CollectionEntry<"blog">[];
+}
+
+const { entries } = Astro.props;
+
+let posts = entries;
+if (!ENABLE_DEV_POSTS) {
+  posts = entries.filter((entry) => !entry.data.isDevPost);
+}
+
+---
+
+<style>
+  UL {
+    list-style: none;
+    color: #333;
+    padding: 0 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+    gap: 1rem;
+  }
+
+</style>
+
+<ul>
+  {
+    posts.map((entry) => {
+      return (
+        <li>
+          <BlogPostEntry
+            title={entry.data.title}
+            authors={entry.data.authors}
+            publishDate={entry.data.date}
+            slug={entry.slug}
+            summary={entry.data.summary}
+            tags={entry.data.tags}
+            thumbnail={entry.data.thumbnail}
+          />
+        </li>
+      );
+    })
+  }
+</ul>
