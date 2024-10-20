@@ -1,0 +1,169 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import { Icon } from "astro-icon/components";
+import Carousel from "src/components/carousel";
+import carouselData from "../data/carouselTeam.json";
+
+const teamCollection = await getCollection("team");
+teamCollection.sort((a, b) => a.data.order - b.data.order);
+
+const team = teamCollection.filter((entry) => entry.data.advisor === false);
+const advisors = teamCollection.filter((entry) => entry.data.advisor === true);
+---
+<style>
+	.img-main {
+        display: block;
+        margin: auto;
+        text-align: center;
+        margin-bottom: 30px;
+		width: 100%;
+    }
+	.container {
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.team-container {
+		margin-top: 40px;
+	}
+	.title {
+        color: #6b2875;
+        font-weight: 600;
+        margin: 1em 0 0.75em;
+        text-shadow: none;
+        font-size: 36px;
+        line-height: 1.1;
+    }
+	.name {
+		color: #6b2875;
+        font-weight: 600;
+        margin: 1em 0 0.75em;
+        text-shadow: none;
+		font-size: 28px;
+	}
+	.team-member {
+		display: flex;
+		margin-bottom: 30px;
+	}
+	.member-image{
+		max-width: 12rem;
+        margin-right: 30px;
+		padding: 4px;
+		line-height: 1.42857;
+		background-color: #fff;
+		border: 1px solid #ddd;
+		border-radius: 4px;
+		transition: all 0.2s ease-in-out;
+		display: inline-block;
+		height: auto;
+	}
+	.social {
+		display: flex;
+		flex-direction: row;
+	}
+	.icon {
+		width: 20px;
+		height: 20px;
+		color: #49A9DE;
+
+	}
+
+	@media screen and  (min-width: 1200px) {
+      .container {
+        width: 1170px;
+      }
+  }
+
+  @media screen and (max-width: 994px) {
+    .team-member {
+        padding: 10px;
+    }
+  }
+  @media screen and (max-width: 780px) {
+    .team-member {
+        flex-wrap: wrap;
+    }
+	.member-image {
+		margin: 0 auto;
+	}
+  }
+
+</style>
+<Layout
+  title="Team - Ekumen"
+  description="We are an international engineering boutique, provider of advanced software development services and technology."
+>
+	<article class="container">
+		<h1 class="title">Meet the team</h1>
+		<Carousel carouselData={carouselData} client:load />
+		<main>
+			<section class="team-container">
+				{
+					team.map(async (entry: any) => {
+						const { Content } = await entry.render();
+						const social = entry.data.social ? Object.keys(entry.data.social) : null;
+						return (
+						<article class="team-member">
+						<img src={entry.data.image} class="member-image" alt={entry.data.name} />
+						<section>
+							<h2 class="name" translate="no"> { entry.data.name }</h2>
+							<section class="social">
+								{
+									social && social.map((key) => (
+										<a
+										href={`${entry.data.social[key]}`}
+										target="_blank"
+										class="icon"
+										aria-label={key}
+										>
+											<Icon name={`mdi:${key}`} />
+										</a>
+									))
+								}
+							</section>
+							<section>
+								<Content />
+							</section>
+						</section>
+						</article>
+				  );
+				})
+				}
+			</section>
+			<section>
+				<h1 class="title">Advisors</h1>
+				{
+					advisors.map(async (entry: any) => {
+						const { Content } = await entry.render();
+						const social = entry.data.social ? Object.keys(entry.data.social) : null;
+						return (
+						<article class="team-member">
+						<img src={entry.data.image} class="member-image" alt={entry.data.name} />
+						<section>
+							<h2 class="name"> { entry.data.name }</h2>
+							<section class="social">
+								{
+									social && social.map((key) => (
+										<a
+										href={`${entry.data.social[key]}`}
+										target="_blank"
+										class="icon"
+										aria-label={key}
+										>
+											<Icon name={`mdi:${key}`} />
+										</a>
+									))
+								}
+							</section>
+							<section>
+								<Content />
+							</section>
+						</section>
+						</article>
+				  );
+				})
+				}
+			</section>
+		</main>
+	</article>
+</Layout>

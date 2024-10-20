@@ -1,0 +1,51 @@
+---
+import BasicLayout from "./BasicLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import type { MarkdownLayoutProps } from 'astro';
+
+type Props = MarkdownLayoutProps <{
+  title: string;
+  description: string;
+}>;
+
+const { frontmatter } = Astro.props;
+
+---
+
+<BasicLayout title={frontmatter.title} description={frontmatter.description}>
+  <Header />
+  <section class="container">
+    <slot />
+  </section>
+
+  <Footer />
+</BasicLayout>
+
+<style>
+  .container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .container :global(h1), .container :global(h2) {
+    color: #6b2875;
+    font-weight: 600;
+    margin: 1em 0 .75em;
+    text-shadow: none;
+  }
+  .container :global(p), .container :global(li) {
+    margin: 0 0 10px;
+    line-height: 1.6;
+    font-weight: 400;
+    line-height: 1.875;
+    font-size: 16px;
+  }
+
+  @media screen and  (min-width: 1200px) {
+      .container {
+        width: 1170px;
+      }
+  }
+</style>

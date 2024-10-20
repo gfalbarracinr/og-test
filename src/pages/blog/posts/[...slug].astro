@@ -1,0 +1,193 @@
+---
+import { getCollection } from "astro:content";
+import BlogLayout from "../../../layouts/BlogLayout.astro";
+import Tags from "../../../components/blog/Tags.astro";
+import { BLOG_ENABLED } from "src/feature_flags";
+import "katex/dist/katex.min.css";
+import "remark-github-blockquote-alert/alert.css";
+
+
+//  Generate a new path for every entry
+export async function getStaticPaths() {
+  if (!BLOG_ENABLED) {
+    return [];
+  }
+  const blogEntries = await getCollection("blog");
+  return blogEntries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const dateOptions: object = {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+};
+
+const formatDate = (date: Date) => {
+  return new Date(date).toLocaleDateString("en-US", dateOptions);
+};
+
+const { entry } = Astro.props;
+const { title, tags, authors, date, backgroundImage, summary } = entry.data;
+const { Content } = await entry.render();
+---
+
+<script>
+  // Source: https://github.com/JuanM04/portfolio/blob/983b0ed0eabdac37bf8b7912d3e8128a443192b9/src/pages/docs/%5B...documentSlug%5D.astro#L74-L103
+  // From this comment: https://github.com/withastro/astro/issues/4433#issuecomment-1584019991
+  /**
+   * @params {HTMLCollectionOf<HTMLElement>} graphs
+   */
+  async function renderDiagrams(graphs: HTMLCollectionOf<Element>) {
+    const {default: mermaid} = await import("mermaid");
+    mermaid.initialize({
+      startOnLoad: false,
+      fontFamily: "var(--sans-font)",
+      theme: window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "default",
+    });
+
+
+    for (const graph of graphs) {
+      const content = graph.querySelector(".mermaid-src")?.textContent;
+      if (!content) continue;
+      let svg = document.createElement("svg");
+      const id = (svg.id = "mermaid-" + Math.round(Math.random() * 100000));
+      graph.appendChild(svg);
+      mermaid.render(id, content).then(result => {
+        graph.innerHTML = result.svg;
+      });
+    }
+  };
+
+
+  const graphs = document.getElementsByClassName("mermaid")
+  if (document.getElementsByClassName("mermaid").length > 0) {
+    renderDiagrams(graphs);
+  }
+ </script>
+
+<style is:global>
+  .authors {
+    padding-bottom: 1rem;
+  }
+  .post-content {
+    border-top: 1px solid #ccc;
+    padding: 2rem;
+    margin-top: 1rem;
+    text-align: justify;
+    max-width: 800px;
+    font-family: "Roboto";
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.6;
+  }
+  img, .mermaid {
+    text-align: center;
+    max-width: 800px; /* Make sure images don't overflow */
+    width: 100%;
+  }
+  iframe {
+    margin: 0 auto;
+    text-align: center;
+    display: block;
+    max-width: 800px;
+    width: 100%;
+  }
+  .post-content > h1 {
+    font-weight: 600;
+    font-size: 32px;
+  }
+  .post-content  a {
+    color: #1E90FF;
+  }
+  .post-content  a:visited {
+    color: #1E90FF;
+  }
+  .post-container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  figcaption {
+    text-align: center;
+    font-size: 15px;
+  }
+
+  .image-container {
+    background-size: cover;
+    background-position: center;
+    height: 500px;
+    width: 100%;
+    background-repeat: no-repeat;
+    mix-blend-mode: screen;
+    opacity: 0.8;
+    background-color: rgba(151, 99, 157, 0.1);
+    background-blend-mode: multiply;
+  }
+
+  .tag-container {
+    display: flex;
+    justify-content: center;
+    max-width: 800px;
+    margin: 17px auto;
+  }
+
+  .post-title {
+    font-size: 42px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  .post-details {
+    color: #585858;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .post-details > p {
+    margin: 0;
+  }
+
+  .date {
+    color: #BBBBBB;
+    font-size: 0.9rem;
+  }
+
+  @media screen and (max-width: 480px) {
+    .post-content {
+      font-size: 16px;
+      line-height: 1.35;
+    }
+  }
+</style>
+
+<BlogLayout title={`${title} - Ekumen`} description={summary}>
+  <main>
+    <div class="image-container" style={{ backgroundImage: `linear-gradient( rgba(151, 99, 157, 0.6), rgba(151, 99, 157, 0.6) ), url(${backgroundImage})`}}/>
+
+      <section class="post-container">
+        <section class="tag-container">
+          <Tags tags={tags} />
+        </section>
+        <h1 class="post-title">
+          {title}
+        </h1>
+
+        <div class="post-details">
+          <p class="date">{formatDate(date)}</p>
+          <p>
+          {authors.length > 1 
+            ? authors.slice(0, -1).join(', ') + ' and ' + authors.slice(-1)
+            : authors[0]}
+          </p>
+        </div>
+
+        <article class="post-content">
+          <Content />
+        </article>
+      </section>
+    </main>
+  </BlogLayout>

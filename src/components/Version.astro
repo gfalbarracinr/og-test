@@ -1,0 +1,21 @@
+---
+const version_url = import.meta.env.PUBLIC_VERSION_URL;
+const version_label = import.meta.env.PUBLIC_VERSION_LABEL;
+
+const label = version_label || "local";
+const link = version_label ? version_url : "#";
+---
+
+<style>
+  .version, A {
+    color: #bbb;
+  }
+
+  A {
+    text-decoration: none;
+  }
+</style>
+
+<div class="version">
+  Version: <a href={link} >{label}</a>
+</div>

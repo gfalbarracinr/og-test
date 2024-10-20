@@ -1,62 +1,201 @@
 ---
-import Layout from '../layouts/BlogPost.astro';
+import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout
-	title="About Me"
-	description="Lorem ipsum dolor sit amet"
-	pubDate={new Date('August 08 2021')}
-	heroImage="/blog-placeholder-about.jpg"
->
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo
-		viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam
-		adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus
-		et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus
-		vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque
-		sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
-	</p>
+<head>
+  <link
+    href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css"
+    rel="stylesheet"
+    type="text/css"
+  />
+</head>
 
-	<p>
-		Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non
-		tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non
-		blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna
-		porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis
-		massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc.
-		Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis
-		bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra
-		massa massa ultricies mi.
-	</p>
+<style>
+  main {
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    margin: auto;
+  }
 
-	<p>
-		Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl
-		suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet
-		nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae
-		turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem
-		dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat
-		semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus
-		vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum
-		facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam
-		vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla
-		urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
-	</p>
+  section {
+    width: 50%;
+    margin: 0 2rem 0 2rem;
+  }
 
-	<p>
-		Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper
-		viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc
-		scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur
-		gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus
-		pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim
-		blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id
-		cursus metus aliquam eleifend mi.
-	</p>
+  h2 {
+    color: #6b2875;
+    font-weight: 600;
+    margin: 1em 0 0.75em;
+    text-shadow: none;
+    font-size: 36px;
+    line-height: 1.1;
+  }
+  #ekumenOfficeMap {
+    height: 180px;
+  }
 
-	<p>
-		Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta
-		nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam
-		tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci
-		ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar
-		proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
-	</p>
+  .map {
+    height: 180px;
+    margin: 2rem 0 2rem 0;
+  }
+
+  p,
+  address {
+    line-height: 1.875;
+  }
+
+  a {
+    color: #49A9DE;
+  }
+
+  @media screen and (max-width: 780px) {
+    main {
+      flex-direction: column;
+      width: 100%;
+    }
+    section {
+      width: 90%;
+    }
+  }
+</style>
+
+<Layout title="About - Ekumen" description="this is a description">
+  <main>
+    <section>
+      <h2>About us</h2>
+
+      <p>
+        Ekumen is an international engineering boutique, provider of advanced
+        software development services and technology. We are a small, dynamic
+        team of highly-talented engineers with a penchant for challenging
+        technical problems and highly motivated to bring advancement to the
+        world through technology.
+      </p>
+      <h2>Our clients</h2>
+      <p>
+        Our strengths and interests are an ideal match for technology companies
+        that need the flexibility and adaptability of a small team as well as
+        very high talent and a high level of engagement. We are working with
+        technology start-up companies from the Silicon Valley and other
+        innovation centers around the world.
+      </p>
+      <h2>Technology transfer</h2>
+      <p>
+        We specialize in bridging the gap between scientific research and
+        deployable product: we can work with complex, under-documented
+        technology and we have the engineering and usability experience to bring
+        real products into the market.
+      </p>
+      <h2>Effective virtual teams</h2>
+      <p>
+        We have more than ten years of experience in global, remote
+        collaboration and have repeatedly succeeded in creating effective,
+        tightly-knit day-to-day working experiences with our customers. In
+        practice, we become an integral part of our customers' development
+        teams.
+      </p>
+      <h2>Virtually close</h2>
+      <p>
+        Our timezone locations (GMT-5, GMT-4, GMT-3 and GMT+1) make it easy to
+        maintain multiple-hour, sometimes full-day overlap with customers in
+        America, Europe, Middle East and Africa. This further helps us work
+        hand-in-hand with our customers and be present during important
+        deadlines and deliverables.
+      </p>
+      <h2>Quality people</h2>
+      <p>
+        Experts join Ekumen for our engaging projects and world-class software
+        engineering skills. We are motivated by the chance to work hand-in-hand
+        with other top talents on cutting-edge projects with international
+        customers at the forefront of technology innovation.
+      </p>
+      <h2>Fast learners</h2>
+      <p>
+        We are passionate about technology. We love engaging in opportunities
+        for which we have to learn something new. We dive into your project
+        environment, understand it, and work with you on it. Adapting quickly is
+        one of our key strengths.
+      </p>
+      <h2>Technology expertise</h2>
+      <p>
+        We specialize in the following areas: - Robotics Software Applications -
+        Web and Mobile Technology - Embedded Systems - User Centered Engineering
+        We have developed expertise in a variety of technologies, including:
+        JavaScript, Python, C++, Java, Android, HTML5, OpenGL, ROS, Gazebo, Web
+        Sockets, Socket.IO, Django, Ruby on Rails, Node, Angular.JS, Docker, Git
+        and many more
+      </p>
+    </section>
+
+    <section>
+      <h2>Let's get in touch</h2>
+
+      <address>
+        <a href="mailto:contact@ekumenlabs.com">contact@ekumenlabs.com</a> | +1 (408)
+        414-7455
+      </address>
+
+      <p>
+        While some of Ekumen's engineers work distributed from different parts
+        of the world, we have headquarters in both Buenos Aires, Argentina and
+        Munich, Germany:
+      </p>
+
+      <div id="ekumenBsAs" class="map"></div>
+
+      <address>
+        Honduras 5550, Office 302<br />
+        Ciudad Aut&oacute;noma de Buenos Aires, C1414BNB<br />
+        Argentina<br />
+        Phone: +54 (11) 4500-9898<br />
+      </address>
+
+      <div id="ekumenMunich" class="map"></div>
+
+      <address>
+        Leopoldstra&szlig;e 31<br />
+        Zip code 80802<br />
+        Munich, Germany<br />
+      </address>
+    </section>
+  </main>
 </Layout>
+
+<script>
+  import mapboxgl from "mapbox-gl";
+
+  // Leaflet map setup
+  mapboxgl.accessToken =
+    "pk.eyJ1IjoiZWt1bWVuIiwiYSI6ImNpZXZqcW9nejB4ejM5MW0zcnBsZmhoa3MifQ.Tjix9jwmkT-gGbD1g8OvBg";
+
+  const bsasMap = new mapboxgl.Map({
+    container: "ekumenBsAs",
+    style: "mapbox://styles/mapbox/streets-v8",
+    center: [-58.435863, -34.584559],
+    zoom: 12,
+  });
+
+  new mapboxgl.Popup({
+    closeButton: false,
+    closeOnClick: false,
+  })
+    .setLngLat([-58.435863, -34.584559])
+    .setHTML('<img src="/logo.svg" height=40/>')
+    .addTo(bsasMap);
+
+  const munichMap = new mapboxgl.Map({
+    container: "ekumenMunich",
+    style: "mapbox://styles/mapbox/streets-v8",
+    center: [11.584761013492237, 48.15874641011694],
+    zoom: 12,
+  });
+
+  new mapboxgl.Popup({
+    closeButton: false,
+    closeOnClick: false,
+  })
+    .setLngLat([11.584761013492237, 48.15874641011694])
+    .setHTML('<img src="/logo.svg" height=40/>')
+    .addTo(munichMap);
+</script>

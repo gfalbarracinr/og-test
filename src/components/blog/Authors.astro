@@ -1,0 +1,23 @@
+---
+import Author from "./Author.astro";
+
+interface Props {
+  authors: string[];
+}
+
+const { authors } = Astro.props;
+---
+
+<style>
+  .container {
+    display: flex;
+  }
+
+  .tag {
+    padding-right: 1rem;
+  }
+</style>
+
+<div class="container">
+  {authors.map((author) => <Author author={author} />)}
+</div>
