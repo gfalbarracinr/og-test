@@ -7,7 +7,6 @@ import sitemap from "@astrojs/sitemap";
 import rehypeKatex from 'rehype-katex';
 import remarkMath from 'remark-math';
 import { remarkAlert } from 'remark-github-blockquote-alert';
-import { remarkMermaid } from "./src/plugins/remark-mermaid";   
 import icon from 'astro-icon';
 
 // https://astro.build/config
@@ -34,7 +33,6 @@ export default defineConfig({
     remarkPlugins: [
       remarkMath,
       remarkAlert,
-      remarkMermaid
     ],
     rehypePlugins: [
       rehypeKatex, 
