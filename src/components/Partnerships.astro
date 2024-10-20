@@ -8,14 +8,14 @@ const partnerCollection = await getCollection("partner");
   <div class="container">
     {
       partnerCollection.map((partner) => (
-        <article class="partner">
+        <div class="partner">
           <a href={`/partners/#${partner.slug}`}>
             <img src={partner.data.logo} />
           </a>
           <p>
             <Fragment set:html={partner.data.short_description} />
           </p>
-        </article>
+        </div>
       ))
     }
   </div>
